@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Website</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #0d0d0d;
+      color: white;
+      line-height: 1.6;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    main {
+      height: 100vh;
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    section {
+      padding: 160px 20px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      scroll-snap-align: start;
+    }
+
+    .hero video,
+    .content video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero h2, .hero p,
+    .content h2, .content p {
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 1.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #000000;
+      font-size: 0.9rem;
+      color: #888888;
+    }
+
+    /* Side nav */
+    .side-nav {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .side-nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      background: #22222200;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .side-nav a:hover {
+      background: rgba(255, 255, 255, 0);
+      transform: translateX(-5px);
+    }
+
+    @media (max-width: 600px) {
+      .side-nav { right: 10px; }
+    }
+
+    /* THE STREAMER ARC section */
+    .streamer-section {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      max-width: 800px;
+      margin: auto;
+      z-index: 2;
+      position: absolute;
+      top: 0px; left: 70px; right: 70; bottom: 50px;%
+      width: 100%; height:55%;
+    }
+
+    .streamer-section h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .streamer-section h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .streamer-section p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: right;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: right;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      border-radius: 15px;
+      text-decoration: none;
+      color: white;
+      width: 220px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .social-btn i {
+      min-width: 40px;
+      font-size: 1.75rem;
+    }
+
+    @media (max-width: 768px) {
+      .streamer-section {
+        width: 90%;
+      }
+
+      .social-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* New contact section styles */
+    .contact {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      min-height: 100vh;
+    }
+
+    .video-wrapper {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-wrapper .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .form-container {
+      position: relative;
+      z-index: 2;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3rem;
+      border-radius: 20px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 0, 76, 0.4);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #00000080;
+    }
+    h4 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #d400ff;
+      text-shadow: 0 0 10px #b607eb80;
+    }
+    h3 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #000000;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ff00aa;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      background-color: #ff004f;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+      box-shadow: 0 0 10px #ff004f;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #cc003f;
+      animation: pulse 0.5s;
+    }
+
+    .success {
+      display: none;
+      margin-top: 1rem;
+      color: #00ff99;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .inline-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .social {
+      width: 50px;
+      height: 50px;
+      background-color: #1a1a1a;
+      background-size: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50%;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 0, 76, 0.4);
+    }
+
+    .social:hover {
+      transform: rotate(15deg) scale(1.1);
+      background-color: #ff004f;
+      box-shadow: 0 0 20px rgba(255, 0, 76, 0.8);
+    }
+
+    .social.discord {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3670/3670157.png');
+    }
+    .social.youtube {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/1384/1384060.png');
+    }
+    .social.facebook {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/1384/1384053.png');
+    }
+    .social.tiktok {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3046/3046124.png');
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-container {
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
+<style>
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  .fade-delay-1 { animation-delay: 0.2s; }
+  .fade-delay-2 { animation-delay: 0.4s; }
+  .fade-delay-3 { animation-delay: 0.6s; }
+</style>
+
+<body> 
+  <div class="side-nav">
+    <a href="#home">⚪</a>
+    <a href="#streamer">⚪</a>
+    <a href="#contact">⚪</a>
+  </div>
+
+  <main>
+    <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>yasuru_bro Homepage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+    .overlay {
+      background: url('your-clouds.png') no-repeat top center;
+      background-size: cover;
+    }
+    .ray-bg {
+      background: url('your-rays.png') no-repeat center center;
+      background-size: cover;
+    }
+    video::-webkit-media-controls {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="text-white font-sans relative overflow-hidden">
+
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="absolute w-full h-full object-cover -z-10">
+    <source src="video/virtual trip. Trippy turbulence visual. After effects displacement.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Ray Background Overlay -->
+  <div class="absolute w-full h-full ray-bg -z-10 opacity-50"></div>
+
+  <!-- Cloud Overlay -->
+  <div class="absolute top-0 w-full h-64 overlay z-10"></div>
+
+  <!-- Main Content -->
+  <!-- Main Content -->
+<!-- Main Content -->
+<section class="hero min-h-screen flex items-center justify-center text-center px-6" id="home">
+  <div>
+    <h1 class="text-4xl md:text-6xl font-extrabold uppercase drop-shadow-lg fade-up fade-delay-1">Yo, What's Up Boys & Girls!</h1>
+    <h2 class="text-5xl md:text-7xl font-black uppercase mt-2 drop-shadow-lg fade-up fade-delay-2">I'm YasuRu</h2>
+    <p class="text-lg md:text-xl mt-4 max-w-xl mx-auto drop-shadow-sm fade-up fade-delay-3">
+      I do live-streams and make videos to entertain people.
+    </p>
+  </div>
+</section>
+
+
+</body>
+</html>
+<section class="relative w-full min-h-screen flex items-center justify-center overflow-hidden" id="streamer">
+  <!-- Background video -->
+  <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover z-0">
+    <source src="video/Synthwave Background Loop, Energy, 80s, Retro Video Background _ Free Stock Footage.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Content Wrapper -->
+  <div class="relative z-10 w-full max-w-7xl px-6 py-16 flex flex-col md:flex-row items-center justify-between text-white gap-10">
+    
+    <!-- Left: Streamer Image -->
+    <div class="w-full md:w-1/2 flex justify-center">
+      <img src="images/u.png" alt="Yasuru Bro" class="rounded-xl max-w-xs md:max-w-md">
+    </div>
+
+    <!-- Right: Text Content -->
+    <div class="w-full md:w-1/2 text-right md:text-left space-y-6">
+      <h1 class="text-4xl md:text-6xl font-black leading-tight">
+        THE <span class="text-transparent stroke-2" style="-webkit-text-stroke: 1px white;">STREAMER</span><br>ARC
+      </h1>
+      <h3 class="text-lg md:text-2xl text-pink-400 font-semibold">Pro Gameplays And Cringy Jokes :)</h3>
+      <p class="text-sm md:text-base text-gray-200 leading-relaxed">
+        Yo, What's Up Boys & Girls! I'm Yasuru Bro, your go-to streamer for live gaming action. I stream twice a week—every Monday and Saturday at 6:00 PM (9:00 PM+). Whether it's story-driven adventures or competitive matches, I'm here to entertain and connect with fellow gaming enthusiasts. Join me for some fun, laughs, and epic gameplay moments!
+      </p>
+
+      <!-- Social Buttons -->
+      <div class="flex flex-wrap gap-4 justify-end md:justify-start mt-6">
+        <a href="https://youtube.com/@yasuru_bro?si=Xyd25RcwydsBk9TK" target="_blank" class="flex items-center gap-4 bg-white bg-opacity-10 px-5 py-3 rounded-xl border border-white border-opacity-30 hover:bg-opacity-20 transition">
+          <i class="fab fa-youtube text-red-500 text-2xl"></i>
+          <div class="text-left">
+            <strong>Youtube</strong><br>
+            <span class="text-xs text-gray-300">50+ Subscribers</span>
+          </div>
+        </a>
+        <a href="https://facebook.com/profile.php?id=61558942237088&mibextid=ZbWKw" target="_blank" class="flex items-center gap-4 bg-white bg-opacity-10 px-5 py-3 rounded-xl border border-white border-opacity-30 hover:bg-opacity-20 transition">
+          <i class="fab fa-facebook text-blue-500 text-2xl"></i>
+          <div class="text-left">
+            <strong>Facebook</strong><br>
+            <span class="text-xs text-gray-300">150+ Followers</span>
+          </div>
+        </a>
+        <a href="https://www.tiktok.com/@yasuru_bro" target="_blank" class="flex items-center gap-4 bg-white bg-opacity-10 px-5 py-3 rounded-xl border border-white border-opacity-30 hover:bg-opacity-20 transition">
+          <i class="fab fa-tiktok text-white text-2xl"></i>
+          <div class="text-left">
+            <strong>TikTok</strong><br>
+            <span class="text-xs text-gray-300">5+ Fans</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- New Contact Section -->
+    <section class="contact" id="contact">
+      <div class="video-wrapper">
+        <video autoplay muted loop playsinline>
+          <source src="video/virtual trip. Trippy turbulence visual. After effects displacement.mp4" type="video/mp4" />
+        </video>
+        <div class="overlay"></div>
+      </div>
+
+      <div class="form-container">
+        <h4>Contact Me</h4>
+        <form action="https://formspree.io/f/xqapjolg" method="POST" id="contact-form">
+          <div class="form-grid">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <input type="text" name="business" placeholder="Business / Brand" required />
+            <input type="text" name="subject" placeholder="Subject" required />
+          </div>
+          <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+          <p id="success-msg" class="success">Thanks! Your message was sent 🎉</p>
+        </form>
+
+        <div class="inline-social">
+          <a href="https://discord.gg/NnpkhhTENS" target="_blank" class="social discord"></a>
+          <a href="https://youtube.com/@yasuru_bro?si=Xyd25RcwydsBk9TK" target="_blank" class="social youtube"></a>
+          <a href="https://facebook.com/profile.php?id=61558942237088&mibextid=ZbWKwL" target="_blank" class="social facebook"></a>
+          <a href="https://www.tiktok.com/@yasuru_bro" target="_blank" class="social tiktok"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+<!-- Social Icons -->
+<div class="absolute bottom-6 right-6 flex gap-4 z-30">
+  <a href="https://instagram.com/YOUR_LINK" target="_blank">
+    <img src="images/OIP.jpeg" alt="Instagram" class="w-8 h-8 hover:scale-110 transition" />
+  </a>
+  <a href="https://tiktok.com/@YOUR_LINK" target="_blank">
+    <img src="images/tiktok.png" alt="TikTok" class="w-8 h-8 hover:scale-110 transition" />
+  </a>
+  <a href="https://facebook.com/YOUR_LINK" target="_blank">
+    <img src="images/600px-facebook_logo.png" alt="Facebook" class="w-8 h-8 hover:scale-110 transition" />
+  </a>
+</div>
+
+ </div>
+
+    <!-- Footer -->
+    <div class="absolute bottom-4 left-6 text-sm text-white z-30">
+      Copyright © 2025 YasuRu. All Rights Reserved.
+    </div>
+
+  <script>
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const form = e.target;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("success-msg").style.display = "block";
+          form.reset();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
